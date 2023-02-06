@@ -31,8 +31,9 @@ def getanswer(req: Request):
         bot = chatbots[req.uid]
     except Exception:
         return "failed"
-    response = bot.ask(req.text)
-    return response["choices"][0]["text"]
+    response = bot.ask_stream(req.text)
+    # return response["choices"][0]["text"]
+    return response
 
 
 @app.get("/")
@@ -43,9 +44,15 @@ def start():
 
 @app.post("/chat")
 async def chat(req: Request):
+    res = getanswer(req)
+    response = ""
+    for word in res:
+        print(word, end="")
+        response += word
+    print("\n")
     return {
         "result": 0,
-        "answer": getanswer(req)
+        "answer": response
     }
 
 
