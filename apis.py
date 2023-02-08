@@ -50,13 +50,13 @@ def getanswer(req: Request):
     return response
 
 
-@app.get("/")
+@app.get("/api")
 def start():
     uid = genchatbot()
     return uid
 
 
-@app.post("/chat")
+@app.post("/api/chat")
 async def chat(req: Request):
     res = getanswer(req)
     response = ""
