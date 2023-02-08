@@ -17,6 +17,7 @@ class Request(BaseModel):
 
 app = FastAPI()
 
+'''
 origins = ["*"]
 
 app.add_middleware(
@@ -26,6 +27,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+'''
+
 
 chatbots = {str: Chatbot}
 
