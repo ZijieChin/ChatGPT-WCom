@@ -17,7 +17,6 @@ class Request(BaseModel):
 
 app = FastAPI()
 
-'''
 origins = ["*"]
 
 app.add_middleware(
@@ -27,7 +26,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-'''
 
 
 chatbots = {str: Chatbot}
@@ -41,6 +39,7 @@ def genchatbot():
 
 
 def getanswer(req: Request):
+    print(f"ASK: {req.text}")
     try:
         bot = chatbots[req.uid]
     except Exception:
@@ -60,10 +59,12 @@ def start():
 async def chat(req: Request):
     res = getanswer(req)
     response = ""
+    print("ANSWER: ", end="")
     for word in res:
         print(word, end="")
         response += word
     print("\n")
+    response = response.replace("<|im_end|>", "")
     return {
         "result": 0,
         "answer": response
