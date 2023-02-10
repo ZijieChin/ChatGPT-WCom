@@ -17,6 +17,7 @@ class Request(BaseModel):
 
 app = FastAPI()
 
+'''
 origins = ["*"]
 
 app.add_middleware(
@@ -26,7 +27,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
+'''
 
 chatbots = {str: Chatbot}
 
@@ -43,7 +44,7 @@ def getanswer(req: Request):
     try:
         bot = chatbots[req.uid]
     except Exception:
-        return "failed"
+        return "校验失败，请刷新页面后重试。"
     response = bot.ask_stream(req.text)
     # return response["choices"][0]["text"]
     return response
@@ -64,7 +65,7 @@ async def chat(req: Request):
         print(word, end="")
         response += word
     print("\n")
-    response = response.replace("<|im_end|>", "")
+    response = response.replace("<|im_end|>", "").strip()
     return {
         "result": 0,
         "answer": response
