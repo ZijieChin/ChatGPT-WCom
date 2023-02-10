@@ -8,6 +8,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import uvicorn
 
+from loguru import logger
+
 
 # request body
 class Request(BaseModel):
@@ -41,6 +43,7 @@ def genchatbot():
 
 def getanswer(req: Request):
     print(f"ASK: {req.text}")
+    logger.info(f"ASK: {req.text}")
     try:
         bot = chatbots[req.uid]
     except Exception:
@@ -66,6 +69,7 @@ async def chat(req: Request):
         response += word
     print("\n")
     response = response.replace("<|im_end|>", "").strip()
+    logger.info(f"ANSWER: {response}")
     return {
         "result": 0,
         "answer": response

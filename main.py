@@ -8,7 +8,7 @@ logger.add(
     encoding="utf-8",
     format="{level} | {time:YYYY-MM-DD HH:mm:ss} | {file} | {line} | {message}",
     retention="30 days",
-    rotation="50 MB"
+    rotation="500 MB"
 )
 
 
