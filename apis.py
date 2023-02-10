@@ -42,7 +42,6 @@ def genchatbot():
 
 
 def getanswer(req: Request):
-    print(f"ASK: {req.text}")
     logger.info(f"ASK: {req.text}")
     try:
         bot = chatbots[req.uid]
@@ -63,11 +62,8 @@ def start():
 async def chat(req: Request):
     res = getanswer(req)
     response = ""
-    print("ANSWER: ", end="")
     for word in res:
-        print(word, end="")
         response += word
-    print("\n")
     response = response.replace("<|im_end|>", "").strip()
     logger.info(f"ANSWER: {response}")
     return {
