@@ -13,4 +13,4 @@ def conf_reader():
     except Exception as e:
         logger.error(e)
         sys.exit("Exiting...")
-    return key
+    return conf
